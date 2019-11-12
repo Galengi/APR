@@ -5,25 +5,27 @@
 #Función derivada de Wolfram:
 #derive 10*(y-x^2)^2+(1-x)^2
 
-import numpy as np
-
-
-def DerivadaRosenbrock( punto ):
-    dx = 2*(20*(punto[0]**3) - 20*punto[0]*punto[1] + punto[0] - 1)
-    dy = 20*(punto[1]-(punto[0]**2))
+def DerivadaRosenbrock( x , y ):
+    dx = 2*(20*(x**3) - 20*x*y + x - 1)
+    dy = 20*(y-(x**2))
     return dx, dy
  
 
 def DescensoGradiente( x , y , maxI ):
-    punto = np.array([x, y])
-    
+    fx = x
+    fy = y
+    listaSol = {}
     for i in range(100):
+        listaSol[i] = {}
         for j in range(maxI):
             factApr = i/j
-            funDer = np.array(DerivadaRosenbrock(punto))
-            punto = punto - np.dot(factApr,funDer)
-            
-            
+            rx,ry = DerivadaRosenbrock(fx,fy)
+            rx = rx * factApr
+            ry = ry * factApr
+            fx = fx - rx
+            fy = fy - ry
+            listaSol[i][j] = {fx, fy}
+    return listaSol
             
 if __name__ == "__main__":
     if len(sys.argv) == 4:

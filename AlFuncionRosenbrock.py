@@ -1,9 +1,11 @@
-# Implementar en el lenguaje de programación que se desee el algoritmo de descenso por gradiente para minimizar la función de Rosenbrock.
-#Mostrar una traza de ejecución hasta convergencia, con rho_k = K/k (dodne K es una constante a determinar empíricamente), 
-#inicializando los parámetros en el punto (-1, 1)^t.
+# Implementar en el lenguaje de programacion que se desee el algoritmo de descenso por gradiente para minimizar la funcion de Rosenbrock.
+#Mostrar una traza de ejecucion hasta convergencia, con rho_k = K/k (dodne K es una constante a determinar empiricamente), 
+#inicializando los parametros en el punto (-1, 1)^t.
 
-#Función derivada de Wolfram:
+#Funcion derivada de Wolfram:
 #derive 10*(y-x^2)^2+(1-x)^2
+
+import sys
 
 def DerivadaRosenbrock( x , y ):
     dx = 2*(20*(x**3) - 20*x*y + x - 1)
@@ -19,8 +21,11 @@ def DescensoGradiente( x , y , kmin, kmax, step, maxI ):
     fy = y
     listaSol = {}
     i = kmax
+    kvol=9999
+    soli=9999
     while i >= kmin:
-        for j in range(maxI):
+    	sol = 999
+        for j in range(1, maxI):
             factApr = i/j
             rx,ry = DerivadaRosenbrock(fx,fy)
             valor = FuncionRosenbrock(fx,fy)
@@ -28,20 +33,28 @@ def DescensoGradiente( x , y , kmin, kmax, step, maxI ):
             rx = rx * factApr
             ry = ry * factApr
             if(rx <= 0.001):
+                if(sol > j):
+            	    sol = j
                 break
             fx = fx - rx
             fy = fy - ry
+        if(soli > sol):
+            soli = sol
+            kvol = i
         i -= step
-    return listaSol
+    print (soli)
+    print (kvol)
+    for x in listaSol:
+    	print(x)
             
 if __name__ == "__main__":
     if len(sys.argv) == 7:
-        x = sys.argv[1]
-        y = sys.argv[2]
-        kmin = sys.argv[3]
-        kmax = sys.argv[4]
-        step = sys.argv[5]
-        maxI = sys.argv[6]
+        x = float(sys.argv[1])
+        y = float(sys.argv[2])
+        kmin = float(sys.argv[3])
+        kmax = float(sys.argv[4])
+        step = float(sys.argv[5])
+        maxI = int(sys.argv[6])
         DescensoGradiente(x,y,kmin,kmax,step,maxI)
     else:
         syntax()

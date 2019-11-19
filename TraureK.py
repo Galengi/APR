@@ -6,6 +6,7 @@
 #derive 10*(y-x^2)^2+(1-x)^2
 
 import sys
+import math
 
 def DerivadaRosenbrock( x , y ):
     dx = 2*(20*(x**3) - 20*x*y + x - 1)
@@ -16,8 +17,9 @@ def FuncionRosenbrock(x , y ):
     val = 10*(y-x**2)**2+(1-x)**2
     return val
     
-def DistanciEuclidea(fx , fy , rx , ry ):
-    val = sqrt((rx - fx)**2 + (ry - fy)**2)
+def DistanciaEuclidea(fx , fy , rx , ry ):
+    val = math.sqrt((rx - fx)**2 + (ry - fy)**2)
+    return val
     
 def Gradiente( x , y , k, maxI ):
     fx = x

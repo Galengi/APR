@@ -2,8 +2,8 @@
 #Mostrar una traza de ejecucion hasta convergencia, con rho_k = K/k (dodne K es una constante a determinar empiricamente), 
 #inicializando los parametros en el punto (-1, 1)^t.
 
-#Funcion derivada de Wolfram:
-#derive 10*(y-x^2)^2+(1-x)^2
+#Funcion derivada de Wolfram:     export PATH=/opt/anaconda3/bin:$PATH
+#derive 10*(y-x^2)^2+(1-x)^2      conda create -n vvv numpy
 
 import sys
 import math

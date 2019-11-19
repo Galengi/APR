@@ -7,6 +7,7 @@
 
 import sys
 import math
+import numpy
 
 def DerivadaRosenbrock( x , y ):
     dx = 2*(20*(x**3) - 20*x*y + x - 1)
@@ -31,7 +32,10 @@ def Gradiente( x , y , k, maxI ):
         dx,dy = DerivadaRosenbrock(fx,fy)
         rx = fx- dx * factApr
         ry = fy- dy * factApr
-        distancia = DistanciaEuclidea(fx,fy,rx,ry)
+        a=numpy.array((fx, fy))
+        b=numpy.array((rx, ry))
+        distancia = numpy.linalg.norm(a-b)
+        #distancia = DistanciaEuclidea(fx,fy,rx,ry)
         if(distancia <= 0.001):
             solx = fx
             soly = fy
@@ -42,7 +46,7 @@ def Gradiente( x , y , k, maxI ):
         soly = fy
     return solx, soly
 
-def EncuentraK(x,y,kmin,kmax,step,maxI):
+def EncuentraK( x , y , kmin , kmax , step , maxI ):
     listaSol = {}
     i = kmax
     while i >= kmin:
@@ -53,7 +57,7 @@ def EncuentraK(x,y,kmin,kmax,step,maxI):
     	print(x)
 
 if __name__ == "__main__":
-    if len(sys.argv) == 5:
+    if len(sys.argv) == 7:
         x = float(sys.argv[1])
         y = float(sys.argv[2])
         kmin = float(sys.argv[3])

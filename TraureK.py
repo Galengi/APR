@@ -41,13 +41,25 @@ def Gradiente( x , y , k, maxI ):
         solx = fx
         soly = fy
     return solx, soly
-            
+
+def EncuentraK(x,y,kmin,kmax,step,maxI):
+    listaSol = {}
+    i = kmax
+    while i >= kmin:
+        solx, soly = Gradiente( x , y , i, maxI )
+        listaSol[(i)] = {solx,soly}
+        i -= step
+    for x in listaSol:
+    	print(x)
+
 if __name__ == "__main__":
     if len(sys.argv) == 5:
         x = float(sys.argv[1])
         y = float(sys.argv[2])
-        k = float(sys.argv[3])
-        maxI = int(sys.argv[4])
-        Gradiente(x,y,k,maxI)
+        kmin = float(sys.argv[3])
+        kmax = float(sys.argv[4])
+        step = float(sys.argv[5])
+        maxI = int(sys.argv[6])
+        EncuentraK(x,y,kmin,kmax,step,maxI)
     else:
         syntax()

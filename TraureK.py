@@ -7,7 +7,6 @@
 
 import sys
 import math
-import numpy
 
 def DerivadaRosenbrock( x , y ):
     dx = 2*(20*(x**3) - 20*x*y + x - 1)
@@ -29,21 +28,21 @@ def Gradiente( x , y , k, maxI ):
     soly = y
     for j in range(1, maxI):
         factApr = k/j
-        dx,dy = DerivadaRosenbrock(fx,fy)
+        try:
+            dx,dy = DerivadaRosenbrock(fx,fy)
+        except:
+            print("Al calcular la Derivada se produce un error")
+            break
         rx = fx- dx * factApr
         ry = fy- dy * factApr
-        a=numpy.array((fx, fy))
-        b=numpy.array((rx, ry))
         try:
-            distancia = numpy.linalg.norm(a-b)
-            #distancia = DistanciaEuclidea(fx,fy,rx,ry)
+            distancia = DistanciaEuclidea(fx,fy,rx,ry)
             if(distancia <= 0.001):
                 solx = fx
                 soly = fy
                 break
         except:
-            print("Peta la distancia")
-        finally:
+            print("El valor de la distancia es demasiado grande Overflow")
             break
         fx = rx
         fy = ry
@@ -52,14 +51,21 @@ def Gradiente( x , y , k, maxI ):
     return solx, soly
 
 def EncuentraK( x , y , kmin , kmax , step , maxI ):
-    listaSol = {}
+    listaK = []
+    listaX = []
+    listaY = []
     i = kmax
+    j = 0
     while i >= kmin:
         solx, soly = Gradiente( x , y , i, maxI )
-        listaSol[(i)] = {solx,soly}
+        listaK.append(i)
+        listaX.append(solx)
+        listaY.append(soly)
         i -= step
-    for x in listaSol:
-    	print(x)
+        j = j +1
+    for x in range(0, j):
+    	print("Valor de k: ", listaK[x])
+    	print("Punto: ", listaX[x],listaY[x] ,")")
 
 if __name__ == "__main__":
     if len(sys.argv) == 7:

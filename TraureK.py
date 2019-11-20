@@ -34,11 +34,16 @@ def Gradiente( x , y , k, maxI ):
         ry = fy- dy * factApr
         a=numpy.array((fx, fy))
         b=numpy.array((rx, ry))
-        distancia = numpy.linalg.norm(a-b)
-        #distancia = DistanciaEuclidea(fx,fy,rx,ry)
-        if(distancia <= 0.001):
-            solx = fx
-            soly = fy
+        try:
+            distancia = numpy.linalg.norm(a-b)
+            #distancia = DistanciaEuclidea(fx,fy,rx,ry)
+            if(distancia <= 0.001):
+                solx = fx
+                soly = fy
+                break
+        except:
+            print("Peta la distancia")
+        finally:
             break
         fx = rx
         fy = ry

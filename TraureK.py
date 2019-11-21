@@ -64,8 +64,8 @@ def EncuentraK( x , y , kmin , kmax , step , maxI ):
         i -= step
         j = j +1
     for x in range(0, j):
-    	print("Valor de k: ", listaK[x])
-    	print("Punto: ", listaX[x],listaY[x] ,")")
+    	print('Valor de k: ',listaK[x],' Punto(',listaX[x],listaY[x])
+
 
 if __name__ == "__main__":
     if len(sys.argv) == 7:

@@ -28,6 +28,7 @@ def Gradiente( x , y , k, maxI ):
     soly = y
     for j in range(1, maxI):
         factApr = k/j
+        valj = maxI
         try:
             dx,dy = DerivadaRosenbrock(fx,fy)
         except:
@@ -40,6 +41,8 @@ def Gradiente( x , y , k, maxI ):
             if(distancia <= 0.001):
                 solx = fx
                 soly = fy
+                if(distancia == 0):
+                    valj=j
                 break
         except:
             print("El valor de la distancia es demasiado grande Overflow")
@@ -48,7 +51,7 @@ def Gradiente( x , y , k, maxI ):
         fy = ry
         solx = fx
         soly = fy
-    return solx, soly
+    return solx, soly, valj
 
 def EncuentraK( x , y , kmin , kmax , step , maxI ):
     listaK = []
@@ -56,13 +59,21 @@ def EncuentraK( x , y , kmin , kmax , step , maxI ):
     listaY = []
     i = kmax
     j = 0
+    jopti = 999
+    kopti = 999
+    solPunto = (999,999)
     while i >= kmin:
-        solx, soly = Gradiente( x , y , i, maxI )
+        solx, soly, valj = Gradiente( x , y , i, maxI )
         listaK.append(i)
         listaX.append(solx)
         listaY.append(soly)
+        if(valj<jopti):
+            jopti=j
+            solPunto=(solx,soly)
+            kopti=i
         i -= step
         j = j +1
+    print('Valor de k: ',kopti,'Valor de j: ',jopti,'Punto(',solPunto)
     for x in range(0, j):
     	print('Valor de k: ',listaK[x],' Punto(',listaX[x],listaY[x])
 

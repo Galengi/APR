@@ -5,6 +5,7 @@
 # y la libreria math para hacer la raiz que necesitamos en la funcion euclidea
 import sys
 import math
+#from matplotlib import pyplot as plt
 
 #Funcion que nos devuelve los valores derivados de las coordenadas x e y de un punto
 def DerivadaRosenbrock( x , y ):
@@ -98,7 +99,20 @@ def EncuentraK( x , y , kmin , kmax , step , maxI ):
     for x in range(0, j):
         #if(listaX[x] != -1):
         print('Valor de k: ',listaK[x],' Punto(',listaX[x],listaY[x])
+        
+    # Creamos el gráfico
+    #plt.ion()
+    #plt.plot(x,y,'b',x_2,y_2,'y')
 
+    #Colocamos las etiquetas de los ejes
+    #plt.xlabel("Coordenada X")
+    #plt.ylabel("Coordenada Y")
+
+    #Colocamos la leyenda
+    #plt.legend(['Seno','Coseno'])
+
+    #Colocamos el título del gráfico
+    #plt.title("Representacion de funciones")
 
 if __name__ == "__main__":
     if len(sys.argv) == 7:

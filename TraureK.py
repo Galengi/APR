@@ -31,12 +31,6 @@ def Gradiente( x , y , k, maxI ):
         valj = maxI
         try:
             dx,dy = DerivadaRosenbrock(fx,fy)
-            #dx = truncate(dx,2)
-            #dy = truncate(dy,2)
-            #dx = round_up(dx,2)
-            #dy = round_up(dy,2)
-            #dx = round_up(dx,-2)
-            #dy = round_up(dy,-2)
         except:
             print(dx,dy)
             print("Al calcular la Derivada se produce un error")
@@ -45,14 +39,11 @@ def Gradiente( x , y , k, maxI ):
         ry = fy- dy * factApr
         try:
             distancia = DistanciaEuclidea(fx,fy,rx,ry)
-            #distancia = truncate(distancia,5)
-            #distancia = round_up(distancia, 2)
-            #distancia = round_up(distancia, -2)
             if(distancia <= 0.001):
                 solx = fx
                 soly = fy
-                if(distancia == 0):
-                    valj=j
+                #if(distancia == 0):
+                valj=j
                 break
         except:
             print(distancia)

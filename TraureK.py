@@ -38,8 +38,8 @@ def Gradiente( x , y , k, maxI ):
         try:
             dx,dy = DerivadaRosenbrock(fx,fy)
         except:
-            print(dx,dy)
-            print("OverflowError: (34, 'Numerical result out of range')")
+            #print(dx,dy)
+            #print("OverflowError: (34, 'Numerical result out of range')")
             break
         #Guardamos los nuevos puntos
         rx = fx- dx * factApr
@@ -48,25 +48,24 @@ def Gradiente( x , y , k, maxI ):
             distancia = DistanciaEuclidea(fx,fy,rx,ry)
             #Si la distancia es menor que el factor distancia que consideramos solucion guardamos 
             #el punto solucion y la iteracion en la que se ha encontrado solucion y terminamos el bucle
-            if(distancia <= 0.00001):
+            if(distancia <= 0.0000001):
                 solx = fx
                 soly = fy
                 valj=j
                 cont = 1
                 break
         except:
-            print(distancia)
-            print("OverflowError: (34, 'Numerical result out of range')")
+            #print(distancia)
+            #print("OverflowError: (34, 'Numerical result out of range')")
             break
         
         #Si no ha encontrado solucion se sobreescribe el punto anterior por el desplazado y guardamos la solucion
         fx = rx
         fy = ry
-        if(cont==1):
-            solx = fx
-            soly = fy
         solx = fx
         soly = fy
+    if(cont != 1):
+    	solx = -1
     return solx, soly, valj
 
 def EncuentraK( x , y , kmin , kmax , step , maxI ):
@@ -95,11 +94,11 @@ def EncuentraK( x , y , kmin , kmax , step , maxI ):
         i -= step
         j = j +1
     print('Valor de k: ',kopti,'Valor de j: ',jopti,'Punto(',solPunto)
-    for x in range(0, j):
-        if(listaX[x] != -1):
+    for l in range(0, j):
+        if(listaX[l] != -1):
         #pintarTraza(x , y , kopti , maxI)
-            pintarTraza(x , y , listaK[x] , maxI)
-        #print('Valor de k: ',listaK[x],' Punto(',listaX[x],listaY[x])
+            pintarTraza(x , y , listaK[l] , maxI)
+            print('Valor de k: ',listaK[l],' Punto(',listaX[l],listaY[l])
 
 def pintarTraza( x , y , k, maxI ):
     #Guardamos los valores iniciales en las variables
@@ -109,7 +108,7 @@ def pintarTraza( x , y , k, maxI ):
     soly = y
     listaX = []
     listaY = []
-    j = 0
+    l = 0
     listaX.append(fx)
     listaY.append(fy)
     for j in range(1, maxI):
@@ -129,10 +128,12 @@ def pintarTraza( x , y , k, maxI ):
             distancia = DistanciaEuclidea(fx,fy,rx,ry)
             #Si la distancia es menor que el factor distancia que consideramos solucion guardamos 
             #el punto solucion y la iteracion en la que se ha encontrado solucion y terminamos el bucle
-            if(distancia <= 0.00001):
+            if(distancia <= 0.0000001):
                 solx = fx
                 soly = fy
-                j = j +1
+                l = l +1
+                listaX.append(solx)
+                listaY.append(soly)
                 break
         except:
             print(distancia)
@@ -144,11 +145,11 @@ def pintarTraza( x , y , k, maxI ):
         fy = ry
         solx = fx
         soly = fy
-        j = j +1
+        l = l +1
         listaX.append(solx)
         listaY.append(soly)
-    for x in range(0, j):
-        print('Iteracion: ',x,' Punto(',listaX[x],listaY[x])
+    for x in range(0, l):
+        print('Valor de k: ',k,'Iteracion: ',x,' Punto(',listaX[x],listaY[x])
     
     
 

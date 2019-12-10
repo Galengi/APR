@@ -5,7 +5,6 @@
 # y la libreria math para hacer la raiz que necesitamos en la funcion euclidea
 import sys
 import math
-#from matplotlib import pyplot as plt
 
 #Funcion que nos devuelve los valores derivados de las coordenadas x e y de un punto
 def DerivadaRosenbrock( x , y ):
@@ -31,7 +30,7 @@ def Gradiente( x , y , k, maxI ):
     fy = y
     solx = x
     soly = y
-    #cont = 0
+    cont = 0
     for j in range(1, maxI):
         #Por cada iteracion reducimos el factor de aprendizaje, que es la magnitud que mueve el punto
         factApr = k/j
@@ -53,7 +52,7 @@ def Gradiente( x , y , k, maxI ):
                 solx = fx
                 soly = fy
                 valj=j
-                #cont = 1
+                cont = 1
                 break
         except:
             print(distancia)
@@ -63,9 +62,9 @@ def Gradiente( x , y , k, maxI ):
         #Si no ha encontrado solucion se sobreescribe el punto anterior por el desplazado y guardamos la solucion
         fx = rx
         fy = ry
-        #if(cont==1):
-        #    solx = fx
-        #    soly = fy
+        if(cont==1):
+            solx = fx
+            soly = fy
         solx = fx
         soly = fy
     return solx, soly, valj
@@ -87,7 +86,7 @@ def EncuentraK( x , y , kmin , kmax , step , maxI ):
         listaK.append(i)
         listaX.append(solx)
         listaY.append(soly)
-        #Si queremos optimizar las iteraciones, nos quedamos con el punto y la k de la menor iteracion
+        #Si queremos optimizar las iteraciones, nos quedamos con el punto y la k con la menor iteracion
         if(valj<jopti):
             jopti=valj
             solPunto=(solx,soly)
@@ -97,22 +96,61 @@ def EncuentraK( x , y , kmin , kmax , step , maxI ):
         j = j +1
     print('Valor de k: ',kopti,'Valor de j: ',jopti,'Punto(',solPunto)
     for x in range(0, j):
-        #if(listaX[x] != -1):
-        print('Valor de k: ',listaK[x],' Punto(',listaX[x],listaY[x])
+        if(listaX[x] != -1):
+        #pintarTraza(x , y , kopti , maxI)
+            pintarTraza(x , y , listaK[x] , maxI)
+        #print('Valor de k: ',listaK[x],' Punto(',listaX[x],listaY[x])
+
+def pintarTraza( x , y , k, maxI ):
+    #Guardamos los valores iniciales en las variables
+    fx = x
+    fy = y
+    solx = x
+    soly = y
+    listaX = []
+    listaY = []
+    j = 0
+    listaX.append(fx)
+    listaY.append(fy)
+    for j in range(1, maxI):
+        #Por cada iteracion reducimos el factor de aprendizaje, que es la magnitud que mueve el punto
+        factApr = k/j
+        valj = maxI
+        try:
+            dx,dy = DerivadaRosenbrock(fx,fy)
+        except:
+            print(dx,dy)
+            print("OverflowError: (34, 'Numerical result out of range')")
+            break
+        #Guardamos los nuevos puntos
+        rx = fx- dx * factApr
+        ry = fy- dy * factApr
+        try:
+            distancia = DistanciaEuclidea(fx,fy,rx,ry)
+            #Si la distancia es menor que el factor distancia que consideramos solucion guardamos 
+            #el punto solucion y la iteracion en la que se ha encontrado solucion y terminamos el bucle
+            if(distancia <= 0.00001):
+                solx = fx
+                soly = fy
+                j = j +1
+                break
+        except:
+            print(distancia)
+            print("OverflowError: (34, 'Numerical result out of range')")
+            break
         
-    # Creamos el gráfico
-    #plt.ion()
-    #plt.plot(x,y,'b',x_2,y_2,'y')
-
-    #Colocamos las etiquetas de los ejes
-    #plt.xlabel("Coordenada X")
-    #plt.ylabel("Coordenada Y")
-
-    #Colocamos la leyenda
-    #plt.legend(['Seno','Coseno'])
-
-    #Colocamos el título del gráfico
-    #plt.title("Representacion de funciones")
+        #Si no ha encontrado solucion se sobreescribe el punto anterior por el desplazado y guardamos la solucion
+        fx = rx
+        fy = ry
+        solx = fx
+        soly = fy
+        j = j +1
+        listaX.append(solx)
+        listaY.append(soly)
+    for x in range(0, j):
+        print('Iteracion: ',x,' Punto(',listaX[x],listaY[x])
+    
+    
 
 if __name__ == "__main__":
     if len(sys.argv) == 7:

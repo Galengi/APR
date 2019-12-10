@@ -30,7 +30,7 @@ def Gradiente( x , y , k, maxI ):
     fy = y
     solx = x
     soly = y
-    #cont = 0
+    cont = 0
     for j in range(1, maxI):
         #Por cada iteracion reducimos el factor de aprendizaje, que es la magnitud que mueve el punto
         factApr = k/j
@@ -52,7 +52,7 @@ def Gradiente( x , y , k, maxI ):
                 solx = fx
                 soly = fy
                 valj=j
-                #cont = 1
+                cont = 1
                 break
         except:
             print(distancia)
@@ -62,9 +62,9 @@ def Gradiente( x , y , k, maxI ):
         #Si no ha encontrado solucion se sobreescribe el punto anterior por el desplazado y guardamos la solucion
         fx = rx
         fy = ry
-        #if(cont==1):
-        #    solx = fx
-        #    soly = fy
+        if(cont==1):
+            solx = fx
+            soly = fy
         solx = fx
         soly = fy
     return solx, soly, valj
@@ -96,12 +96,12 @@ def EncuentraK( x , y , kmin , kmax , step , maxI ):
         j = j +1
     print('Valor de k: ',kopti,'Valor de j: ',jopti,'Punto(',solPunto)
     for x in range(0, j):
-        #if(listaX[x] != -1):
+        if(listaX[x] != -1):
         #pintarTraza(x , y , kopti , maxI)
-        pintarTraza(x , y , listaK[x] , maxI)
-        print('Valor de k: ',listaK[x],' Punto(',listaX[x],listaY[x])
+            pintarTraza(x , y , listaK[x] , maxI)
+        #print('Valor de k: ',listaK[x],' Punto(',listaX[x],listaY[x])
 
-def Gradiente( x , y , k, maxI ):
+def pintarTraza( x , y , k, maxI ):
     #Guardamos los valores iniciales en las variables
     fx = x
     fy = y

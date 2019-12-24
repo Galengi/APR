@@ -61,12 +61,12 @@ redEM.CPD{W} = tabular_CPD(redEM, W);
 motorEM = jtree_inf_engine(redEM);
 
 %aprendizaje
-maxIter = 100; eps = 1e-4;
+maxIter = 1000; eps = 1e-10;
 semilla = 0; rng(semilla);
 [redEM2, trazaLogVer] = learn_params_em(motorEM, muestrasS, maxIter, eps);
 auxTPC = cell(1,N);
 for i=1:N s=struct(redEM2.CPD{i}); auxTPC{i}=s.CPT; end
 
-dispcpt(auxTPC{S})  %probabilidad estimada para el nod s tras 20 iteraciones
+dispcpt(auxTPC{W})  %probabilidad estimada para el nod s tras 20 iteraciones
 
 

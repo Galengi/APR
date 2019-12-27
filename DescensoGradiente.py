@@ -5,7 +5,7 @@
 #Implementar en el lenguaje de programacion que se desee el algoritmo de descenso por gradiente para minimizar la funcion de Rosenbrock.  
 #Mostrar una traza de ejecucion hasta convergencia, con rho_k = K/k (donde K es una constante a determinar empiricamente), inicializando los parametros en el punto (-1, 1)^t.
 
-#PARA EJECUTAR EL CODIGO: python TraureK.py -1 1 0 1 0.01 1000
+#PARA EJECUTAR EL CODIGO: python DescensoGradiente.py -1 1 0 1 0.01 1000
 
 #importamos las librerias sys para que podamos pasarle los parametros a la hora de ejecucion
 # y la libreria math para hacer la raiz que necesitamos en la funcion euclidea

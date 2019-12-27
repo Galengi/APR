@@ -1,5 +1,11 @@
+#ALUMNO: ANGEL, GINER VIDAL
+#EJERCICIO 3.8
+#LENGUAJE EMPLEADO: PYTHON
+
 #Implementar en el lenguaje de programacion que se desee el algoritmo de descenso por gradiente para minimizar la funcion de Rosenbrock.  
 #Mostrar una traza de ejecucion hasta convergencia, con rho_k = K/k (donde K es una constante a determinar empiricamente), inicializando los parametros en el punto (-1, 1)^t.
+
+#PARA EJECUTAR EL CODIGO: python TraureK.py -1 1 0 1 0.01 1000
 
 #importamos las librerias sys para que podamos pasarle los parametros a la hora de ejecucion
 # y la libreria math para hacer la raiz que necesitamos en la funcion euclidea
@@ -48,7 +54,7 @@ def Gradiente( x , y , k, maxI ):
             distancia = DistanciaEuclidea(fx,fy,rx,ry)
             #Si la distancia es menor que el factor distancia que consideramos solucion guardamos 
             #el punto solucion y la iteracion en la que se ha encontrado solucion y terminamos el bucle
-            if(distancia <= 0.0000001):
+            if(distancia <= 0.0000001): #Si aumentamos el valor de la condicion aumentaran el numero de soluciones, si lo reducimos se reduciran
                 solx = fx
                 soly = fy
                 valj=j
@@ -93,11 +99,14 @@ def EncuentraK( x , y , kmin , kmax , step , maxI ):
         #Reducimos la k que comprobamos y incrementamos j en 1 por cada solucion que anadimos
         i -= step
         j = j +1
+    #Por una parte imprimimos las solucion optima (menos iteraciones) su valor k, el numero iteraciones y el punto en el que se detiene
     print('Valor de k: ',kopti,'Valor de j: ',jopti,'Punto(',solPunto)
     for l in range(0, j):
         if(listaX[l] != -1):
         #pintarTraza(x , y , kopti , maxI)
+            #Aqui llamamos a la funcion pintarTraza, que imprime la traza para cada k solucion
             pintarTraza(x , y , listaK[l] , maxI)
+            #Aqui imprimimos la el valor de k y el ulimo punto al que llega justo antes de considerarlo solucion
             print('Valor de k: ',listaK[l],' Punto(',listaX[l],listaY[l])
 
 def pintarTraza( x , y , k, maxI ):
@@ -148,6 +157,7 @@ def pintarTraza( x , y , k, maxI ):
         l = l +1
         listaX.append(solx)
         listaY.append(soly)
+        #Por otra parte imprimimos el valor de k y todas laas iteraciones, de aquellas k que guardamos y por tanto consideramos solucion.
     for x in range(0, l):
         print('Valor de k: ',k,'Iteracion: ',x,' Punto(',listaX[x],listaY[x])
     
@@ -155,12 +165,12 @@ def pintarTraza( x , y , k, maxI ):
 
 if __name__ == "__main__":
     if len(sys.argv) == 7:
-        x = float(sys.argv[1])
-        y = float(sys.argv[2])
-        kmin = float(sys.argv[3])
-        kmax = float(sys.argv[4])
-        step = float(sys.argv[5])
-        maxI = int(sys.argv[6])
+        x = float(sys.argv[1])        #Punto x inicial
+        y = float(sys.argv[2])        #Punto y inicial  
+        kmin = float(sys.argv[3])     #k minima que queremos considerar
+        kmax = float(sys.argv[4])     #k maxima que queremos considerar
+        step = float(sys.argv[5])     #Desplazamiento entre k
+        maxI = int(sys.argv[6])       #Maximo de iteraciones en caso de no llegar a converger
         EncuentraK(x,y,kmin,kmax,step,maxI)
     else:
     	

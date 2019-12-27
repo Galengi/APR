@@ -159,7 +159,7 @@ def pintarTraza( x , y , k, maxI ):
         listaY.append(soly)
         #Por otra parte imprimimos el valor de k y todas laas iteraciones, de aquellas k que guardamos y por tanto consideramos solucion.
     for x in range(0, l):
-        print('Valor de k: ',k,'Iteracion: ',x,' Punto(',listaX[x],listaY[x])
+        print('Valor de k: ',float_round(k, 3, round),'Iteracion: ',x,' Punto(',float_round(listaX[x], 3, round),float_round(listaY[x], 3, round))
     
     
 

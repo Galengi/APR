@@ -54,7 +54,7 @@ def Gradiente( x , y , k, maxI ):
             distancia = DistanciaEuclidea(fx,fy,rx,ry)
             #Si la distancia es menor que el factor distancia que consideramos solucion guardamos 
             #el punto solucion y la iteracion en la que se ha encontrado solucion y terminamos el bucle
-            if(distancia <= 0.0000001): #Si aumentamos el valor de la condicion aumentaran el numero de soluciones, si lo reducimos se reduciran
+            if(distancia <= 0.00001): #Si aumentamos el valor de la condicion aumentaran el numero de soluciones, si lo reducimos se reduciran
                 solx = fx
                 soly = fy
                 valj=j
@@ -107,7 +107,7 @@ def EncuentraK( x , y , kmin , kmax , step , maxI ):
             #Aqui llamamos a la funcion pintarTraza, que imprime la traza para cada k solucion
             pintarTraza(x , y , listaK[l] , maxI)
             #Aqui imprimimos la el valor de k y el ulimo punto al que llega justo antes de considerarlo solucion
-            print('Valor de k: ',listaK[l],' Punto(',listaX[l],listaY[l])
+            print('Valor de k: ',round(listaK[l],3),' Punto(',round(listaX[l], 5),round(listaY[l], 5))
 
 def pintarTraza( x , y , k, maxI ):
     #Guardamos los valores iniciales en las variables
@@ -137,7 +137,7 @@ def pintarTraza( x , y , k, maxI ):
             distancia = DistanciaEuclidea(fx,fy,rx,ry)
             #Si la distancia es menor que el factor distancia que consideramos solucion guardamos 
             #el punto solucion y la iteracion en la que se ha encontrado solucion y terminamos el bucle
-            if(distancia <= 0.0000001):
+            if(distancia <= 0.00001):
                 solx = fx
                 soly = fy
                 l = l +1
@@ -159,7 +159,7 @@ def pintarTraza( x , y , k, maxI ):
         listaY.append(soly)
         #Por otra parte imprimimos el valor de k y todas laas iteraciones, de aquellas k que guardamos y por tanto consideramos solucion.
     for x in range(0, l):
-        print('Valor de k: ',float_round(k, 3, round),'Iteracion: ',x,' Punto(',float_round(listaX[x], 3, round),float_round(listaY[x], 3, round))
+        print('Valor de k: ',round(k, 3),'Iteracion: ',x,' Punto(',round(listaX[x], 5),round(listaY[x], 5))
     
     
 

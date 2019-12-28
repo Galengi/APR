@@ -40,7 +40,6 @@ def Gradiente( x , y , k, maxI ):
     for j in range(1, maxI):
         #Por cada iteracion reducimos el factor de aprendizaje, que es la magnitud que mueve el punto
         factApr = k/j
-        valj = maxI
         try:
             dx,dy = DerivadaRosenbrock(fx,fy)
         except:
@@ -57,7 +56,6 @@ def Gradiente( x , y , k, maxI ):
             if(distancia <= 0.00001): #Si aumentamos el valor de la condicion aumentaran el numero de soluciones, si lo reducimos se reduciran
                 solx = fx
                 soly = fy
-                valj=j
                 cont = 1
                 break
         except:
@@ -72,7 +70,7 @@ def Gradiente( x , y , k, maxI ):
         soly = fy
     if(cont != 1):
     	solx = -1
-    return solx, soly, valj
+    return solx, soly
 
 def EncuentraK( x , y , kmin , kmax , step , maxI ):
     #Creamos 3 listas con los valores de k, x e y
@@ -81,27 +79,18 @@ def EncuentraK( x , y , kmin , kmax , step , maxI ):
     listaY = []
     i = kmax
     j = 0
-    #Inicializamos las soluciones optimas por valores que seran sobreescritos.
-    jopti = 999
-    kopti = 999
-    solPunto = (999,999)
     while i >= kmin:
         #Obtenemos el punto solucion y su iteracion mediante la funcion anterior, y los anadimos a sus listas
-        solx, soly, valj = Gradiente( x , y , i, maxI )
+        solx, soly = Gradiente( x , y , i, maxI )
         listaK.append(i)
         listaX.append(solx)
         listaY.append(soly)
-        #Si queremos optimizar las iteraciones, nos quedamos con el punto y la k con la menor iteracion
-        if(valj<jopti):
-            jopti=valj
-            solPunto=(solx,soly)
-            kopti=i
         #Reducimos la k que comprobamos y incrementamos j en 1 por cada solucion que anadimos
         i -= step
         j = j +1
-    #Por una parte imprimimos las solucion optima (menos iteraciones) su valor k, el numero iteraciones y el punto en el que se detiene
-    print('Valor de k: ',round(kopti,3),'Valor de j: ',jopti,'Punto(',round(solPunto,5))
+
     for l in range(0, j):
+        #if(l+15 < j):
         if(listaX[l] != -1):
         #pintarTraza(x , y , kopti , maxI)
             #Aqui llamamos a la funcion pintarTraza, que imprime la traza para cada k solucion
@@ -123,7 +112,6 @@ def pintarTraza( x , y , k, maxI ):
     for j in range(1, maxI):
         #Por cada iteracion reducimos el factor de aprendizaje, que es la magnitud que mueve el punto
         factApr = k/j
-        valj = maxI
         try:
             dx,dy = DerivadaRosenbrock(fx,fy)
         except:

@@ -100,7 +100,7 @@ def EncuentraK( x , y , kmin , kmax , step , maxI ):
         i -= step
         j = j +1
     #Por una parte imprimimos las solucion optima (menos iteraciones) su valor k, el numero iteraciones y el punto en el que se detiene
-    print('Valor de k: ',kopti,'Valor de j: ',jopti,'Punto(',solPunto)
+    print('Valor de k: ',round(kopti,3),'Valor de j: ',jopti,'Punto(',round(solPunto,5))
     for l in range(0, j):
         if(listaX[l] != -1):
         #pintarTraza(x , y , kopti , maxI)

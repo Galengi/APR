@@ -1,0 +1,33 @@
+def nqueens_color(N,colormap):
+def is_promising(s, newrow):
+# check is a new queen can be put in newcol,newrow
+newcol = len(s)
+return all(newrow != row and newcol-col != abs(newrow-row) and
+colormap[row][col] != colormap[newrow][newcol]
+for (col,row) in enumerate(s))
+def backtracking(s):
+if len(s) == N: return s
+for row in range(N):
+if is_promising(s, row):
+found = backtracking(s+[row])
+if found != None: return found
+return None
+return backtracking([])
+
+
+
+def asignar(P,S,compatibles):
+N=len(P) # n´umero de pa´ıses
+solutions = []
+currentsol = [None]*N
+def backtracking(longSol):
+if longSol==N:
+solutions.append([(P[i],slogan) for i,slogan in enumerate(currentsol)])
+else:
+for slogan in S:
+if all((compatibles(slogan,currentsol[i]) for i in range(longSol)
+if G[i][longSol])):
+currentsol[longSol] = slogan
+backtracking(longSol+1)
+backtracking(0)
+return solutions
